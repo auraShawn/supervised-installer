@@ -17,7 +17,7 @@ Run the following commands as root (`su -` or `sudo su -` on machines with sudo 
 Step 1: Install the following dependencies with this command:
 
 ```bash
-apt-get install \
+apt install \
 apparmor \
 jq \
 wget \
@@ -26,6 +26,7 @@ udisks2 \
 libglib2.0-bin \
 network-manager \
 dbus \
+lsb-release \
 systemd-journal-remote -y
 ```
 
@@ -43,13 +44,14 @@ Step 4: Install the Home Assistant Supervised Debian Package:
 
 ```bash
 wget https://github.com/home-assistant/supervised-installer/releases/latest/download/homeassistant-supervised.deb
-dpkg -i homeassistant-supervised.deb
+apt install ./homeassistant-supervised.deb
 ```
 
 ## Supported Machine types
 
 - generic-x86-64
 - odroid-c2
+- odroid-c4
 - odroid-n2
 - odroid-xu
 - qemuarm
@@ -64,6 +66,17 @@ dpkg -i homeassistant-supervised.deb
 - raspberrypi4-64
 - tinker
 - khadas-vim3
+
+## Configuration
+
+The default path for our `$DATA_SHARE` is `/usr/share/hassio`.
+This path is used to store all home assistant related things.
+
+You can reconfigure this path during installation with
+
+```bash
+DATA_SHARE=/my/own/homeassistant dpkg --force-confdef --force-confold -i homeassistant-supervised.deb
+```
 
 ## Troubleshooting
 
